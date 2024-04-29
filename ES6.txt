@@ -292,3 +292,52 @@ const b = 90;
 console.log(`b ${b}`)
 b = 90
 console.log(`b ${b}`)
+
+.....................................................................................
+			   Functions
+....................................................................................
+
+functions are building block of javascript language.
+functions encapsulate the logic of application.
+functions may take args and return values
+
+
+//basic function declaration
+
+function sayHello() {
+    console.log('hello')
+}
+//invoke function 
+sayHello()
+
+
+Function args and parameters:
+.............................
+
+//args and parameters 
+
+function add(a, b) {
+    let c = a + b
+    console.log(`c ${c}`)
+}
+add(10, 10) 
+
+Default args and parameters:
+//default args
+function add(a = 0, b = 0) {
+    console.log(`a ${a} b ${b}`)
+    let c = a + b
+    console.log(`c ${c}`)
+}
+add(10, 10)
+add()
+
+Return Values:
+//default args
+function add(a = 0, b = 0) {
+    console.log(`a ${a} b ${b}`)
+    return a + b
+}
+console.log(add(10, 10))
+console.log(add())
+....................................................................................
