@@ -447,3 +447,83 @@ let getStock = stock => stock
 
 console.log(getStock(10))
 .....................................................................................
+....................................................................................................			 Higher order functions
+..............................................................................................................................................................................................................
+Since function is value can be passed to another function as parameter(value) and also return another function from function.
+
+Higher order function: function  as parameter:
+......................................................................................
+
+ES 5 function:
+function add(a, b) {
+  console.log(a,b)
+}
+add(10, 10)
+let x = 10;
+let y = 20
+add(x, y)
+
+
+function connect(a) {
+    a()
+}
+
+let sqlconnect = function() {
+    console.log('sqlconnect')
+}
+connect(sqlconnect)
+
+connect(function () {
+    console.log('sqlconnect')
+})
+
+parameeters and hof:
+...................
+
+function connect(cb) {
+    cb('sql')
+}
+let sqlconnect = function (status) {
+    console.log(status)
+}
+connect(sqlconnect)
+
+connect(function (status) {
+    console.log(status)
+})
+//
+Arrow and HOF:
+
+
+// function connect(cb) {
+//     cb('sql')
+// }
+let connect = cb => cb('sql')
+// let sqlconnect = function(status){
+//     console.log(status)
+// }
+let sqlconnect = (status) => console.log(status)
+connect(sqlconnect)
+
+connect(function (status) {
+    console.log(status)
+})
+connect(status => console.log(status))
+
+
+
+const login = (userName, password, success, failure) => {
+    if (userName === 'admin' && password === 'admin') {
+        success('login success')
+    } else {
+        failure('login failed')
+    }
+
+}
+login('admin', 'admin', (status) => { console.log(status) }, (err) => { console.log(err) })
+
+login('admin', 'admin', status => console.log(status), err => console.log(err))
+
+
+
+.....................................................................................
