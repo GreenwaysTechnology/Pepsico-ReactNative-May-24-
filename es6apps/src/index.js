@@ -1,12 +1,7 @@
-const login = (userName, password, success, failure) => {
-    if (userName === 'admin' && password === 'admin') {
-        success('login success')
-    } else {
-        failure('login failed')
-    }
+import { name, city, getMessage } from "./lib.js";
+import TodoService from "./todo.service.js";
 
-}
-login('admin', 'admin', (status) => { console.log(status) }, (err) => { console.log(err) })
+import Message, { message} from "./message.js";
 
-login('admin', 'admin', status => console.log(status), err => console.log(err))
-
+console.log(name, city, getMessage())
+let todoservice = new TodoService()
