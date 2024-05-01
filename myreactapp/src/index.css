@@ -23,11 +23,15 @@ a:hover {
 }
 
 body {
-  margin: 0;
+  margin: 50px 50px 50px 50px;
   display: flex;
-  place-items: center;
+  /* place-items: center; */
   min-width: 320px;
   min-height: 100vh;
+}
+.center {
+  text-align: center;
+  color: red;
 }
 
 h1 {
@@ -66,3 +70,4 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+

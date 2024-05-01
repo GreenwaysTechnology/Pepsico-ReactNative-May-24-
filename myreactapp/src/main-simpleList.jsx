@@ -1,15 +1,14 @@
 import ReactDOM from 'react-dom/client';
 import './index.css'
-import { POSTS } from './mock-data/posts'
 
 //List: array
 
-const Posts = ({ posts }) => {
+const List = ({ data }) => {
     return <>
         <ul>
             {
-                posts.map((post) => {
-                    return <li key={post.id}>{post.title}</li>
+                data.map(item => {
+                    return <li>{item}</li>
                 })
             }
         </ul>
@@ -18,7 +17,8 @@ const Posts = ({ posts }) => {
 
 
 const App = () => {
-    return <Posts posts={POSTS} />
+    const list = ['Subramnaian', 'Ram', 'Karthik', 'Kavitha']
+    return <List data={list} />
 }
 
 
