@@ -1,59 +1,61 @@
-import { Button, StyleSheet, Text, View, FlatList, ActivityIndicator } from "react-native";
-import { useState, useEffect } from "react";
-import { produce } from "immer";
+import { configureStore, createAsyncThunk, createReducer, createSlice } from '@reduxjs/toolkit'
+import { Provider, useDispatch, useSelector } from 'react-redux'
+import { Alert, Button, StyleSheet, Text, View } from "react-native";
 
-const Posts = props => {
-    const [post, setPost] = useState({
-        posts: [], //data
-        error: null,
-        isLoading: false
-    })
-    async function fetchPosts() {
-        const url = 'https://jsonplaceholder.typicode.com/posts'
-        try {
-            const response = await fetch(url)
-            const posts = await response.json()
-            console.log(posts)
-            setPost(previousState => {
-                return produce(previousState, draft => {
-                    draft.posts = posts
-                    draft.isLoading = true
-                    draft.error = previousState.error
-                })
-            })
-        }
-        catch (err) {
-            setPost(previousState => {
-                return produce(previousState, draft => {
-                    draft.error = err
-                })
-            })
-        }
+
+//middleware + api call.
+
+const initialState = {
+    enities: [],
+    loading: false,
+    error: null
+}
+//posts/getPosts/pending or /posts/getPosts/fullfiled
+//thunk middleware function where all api calls will go
+const getPosts = createAsyncThunk('posts/getPosts', async (thunkAPI) => {
+    const response = await fetch('https://jsonplaceholder.typicode.com/posts')
+    const posts = await response.json()
+    return posts
+})
+
+const postSlice = createSlice({
+    name: 'posts',
+    initialState,
+    reducers: {}, //custom biz logic will go inside reducers
+    extraReducers(builder) { // will have api calls/middleware action types
+        builder.addCase(getPosts.pending, (state, action) => {
+            state.loading = true
+        }).addCase(getPosts.fulfilled, (state, { payload }) => {
+            state.loading = false
+            state.enities = payload
+        }).addCase(getPosts.rejected, (state, action) => {
+            state.loading = false
+            state.error = "something went wrong"
+        })
     }
-    //componentDidMount
+})
+
+const postReducer = postSlice.reducer
+
+
+const store = configureStore({
+    reducer: {
+        posts: postReducer
+    },
+})
+
+const Posts = (props) => {
+    const dispatch = useDispatch()
+    const { enities, loading } = useSelector((state) => state.posts)
+
     useEffect(() => {
-        fetchPosts()
+        dispatch(getPosts())
     }, [])
+    return <>
 
-    if (post.error) {
-        return <View style={{ marginLeft: 50 }}>
-            <Text>Error : {post.error.message}</Text>
-        </View>
-    } else if (!post.isLoading) {
-        return <Text style={{ textAlign: 'center' }}>Loading...</Text>
-    } else {
-        return <View style={{ marginLeft: 50 }}>
-            <FlatList
-                data={post.posts}
-                renderItem={({ item: { title } }) => {
-                    return <Text>{title}</Text>
-                }}
-            />
-        </View>
-    }
+    </>
 
 }
-
 export default function App() {
     return <>
         <View style={styles.container}>
@@ -64,9 +66,9 @@ export default function App() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'pink'
+        // alignItems: 'center',
+        // justifyContent: 'center',
+        backgroundColor: '#61dafb'
     },
     label: {
         color: 'red',

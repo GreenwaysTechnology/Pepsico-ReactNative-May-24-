@@ -11,7 +11,8 @@ class Posts extends React.Component {
     async componentDidMount() {
         console.log('posts is called')
         //api call 
-        const url = 'https://jsonplaceholder.typicode.com/posts'
+        //const url = 'https://jsonplaceholder.typicode.com/posts'
+        const url = 'http://localhost:3000/posts'
         try {
             const response = await fetch(url)
             const data = await response.json()
