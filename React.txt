@@ -3804,7 +3804,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 )
 ,..................................................................................
 ...................................................................................
-			    createSlice
+			     createSlice
 		  (actions,reducers,we dont need to create-automation)
 .....................................................................................
 
@@ -4043,9 +4043,9 @@ createAsyncThunk('actions',async function(){})
 
 actions = "posts/fetcPosts" ---> would be converted like below
 
-pending: 'posts/fetcPosts/pending'
-fulfilled: 'posts/fetcPosts/fulfilled'
-rejected: 'posts/fetcPosts/rejected'
+pending: 'posts/fetchPosts/pending'
+fulfilled: 'posts/fetchPosts/fulfilled'
+rejected: 'posts/fetchPosts/rejected'
 
 pending,fulfilled,rejected which are promise internal state.
 
